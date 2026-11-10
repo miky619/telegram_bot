@@ -1,231 +1,605 @@
 🎬 Telegram Movie Bot
 
-A Python-based Telegram bot that allows users to search for movies, explore selected popular titles, and retrieve detailed movie information directly through Telegram.
+A Telegram bot built with Python that allows users to search for movies and retrieve movie information using the OMDb API.
 
-The bot integrates with the OMDb API to fetch movie data and uses pyTelegramBotAPI to handle Telegram interactions.
+📑 Table of Contents
+Project Description
+Overview
+Key Features
+Screenshots and Demo
+Technologies Used
+Project Architecture
+Project Structure
+Requirements and Prerequisites
+Installation Guide
+Virtual Environment Setup
+Dependencies Installation
+API Configuration
+Environment Variables and Configuration Files
+Running the Application
+Available Commands
+Usage Examples
+How It Works
+API Integration
+Error Handling
+Security Considerations
+Troubleshooting
+Current Limitations
+Future Improvements
+Contributing
+License
+Author
+Contact and Repository
+🎯 Project Description
 
----
+Telegram Movie Bot is a Python-based Telegram bot designed to provide users with movie information through a simple conversational interface.
 
-✨ Features
+The bot integrates with the OMDb API to search for movies and retrieve information such as titles, release information, IMDb ratings, cast members, directors, and plot summaries.
 
-🔍 Movie Search
+The project uses the pyTelegramBotAPI library to handle Telegram interactions and requests to communicate with the external movie database.
 
-- Search for movies by entering their titles.
-- Retrieve matching movie results.
-- Display up to five search results.
-- Select a movie using interactive inline buttons.
+📌 Overview
 
-🔥 Popular Movies
+The application consists of two main Python modules:
 
-- Browse a curated list of popular movie titles.
-- Quickly access movie information through interactive buttons.
+app.py: Handles Telegram bot interactions, commands, messages, and inline keyboard callbacks.
+app_api.py: Handles communication with the OMDb API and retrieves movie information.
 
-🎥 Movie Details
+A separate configuration module named base.py is required to provide the Telegram Bot Token and OMDb API Key.
 
-Get detailed information about selected movies, including:
+✨ Key Features
 
-- Movie Title
-- Release Year
-- IMDb Rating
-- Runtime
-- Genre
-- Director
-- Cast
-- Full Plot Overview
+The following features are implemented in the current source code:
 
-💬 Interactive Telegram Interface
+Start the bot using the /start command.
+Display usage instructions using /help.
+Search for movies using /search.
+Retrieve information about movies through the OMDb API.
+Display a predefined list of five movie titles.
+View movie details through Telegram inline keyboard buttons.
+Retrieve IMDb ratings.
+Display movie cast and director information.
+Retrieve movie plot summaries.
 
-- Welcome message and main menu.
-- Custom reply keyboard.
-- Inline movie selection buttons.
-- Help command with usage instructions.
+Note: The predefined movie list is not a live ranking of the most popular movies. It consists of titles specified in the application code.
 
----
+📸 Screenshots and Demo
 
-🛠️ Technologies Used
+Screenshots and demonstration videos have not yet been provided.
 
-Technology| Purpose
-Python| Main programming language
-pyTelegramBotAPI| Telegram Bot integration
-Requests| HTTP requests
-OMDb API| Movie information provider
-IMDb| Movie identification and ratings
+You can add screenshots here after capturing the bot's actual interface.
 
----
+Suggested screenshot locations:
+
+text
+assets/
+├── start-command.png
+├── movie-search.png
+└── movie-details.png
+
+🛠 Technologies Used
+Technology	Purpose
+Python	Main programming language
+pyTelegramBotAPI	Telegram Bot API integration
+Requests	HTTP requests
+OMDb API	Movie information retrieval
+Telegram Bot API	User interaction
+🏗 Project Architecture
+
+The application follows a simple modular architecture.
+
+text
+             Telegram User
+                   |
+                   v
+              Telegram API
+                   |
+                   v
+                app.py
+                   |
+                   v
+               app_api.py
+                   |
+                   v
+                requests
+                   |
+                   v
+                 OMDb API
+                   |
+                   v
+            Movie Information
+
+Main Components
+
+1. Telegram Bot Module (app.py)
+
+Responsible for:
+
+Registering Telegram bot handlers.
+Processing user commands.
+Handling movie search interactions.
+Managing inline keyboard callbacks.
+Displaying movie information to users.
+
+2. Movie API Module (app_api.py)
+
+Responsible for:
+
+Sending requests to the OMDb API.
+Searching for movies.
+Retrieving movie details.
+Processing API responses.
+
+3. Configuration Module (base.py)
+
+Stores the credentials required by the application:
+
+Telegram Bot Token.
+OMDb API Key.
+
+This file must be created locally before running the application.
 
 📁 Project Structure
 
+The confirmed repository structure includes the following:
+
+text
 telegram_bot/
 │
 ├── src/
 │   ├── app.py
 │   ├── app_api.py
-│   └── base.py
+│   └── base.py          # Create this file locally
 │
 ├── requirements.txt
 ├── .gitignore
 └── README.md
 
-File Description
 
-- "app.py": Main application containing Telegram bot commands, message handlers, keyboards, and callback handlers.
-- "app_api.py": Handles communication with the OMDb API and retrieves movie information.
-- "base.py": Stores configuration values and API credentials.
-- "requirements.txt": Contains the project's Python dependencies.
-- ".gitignore": Excludes sensitive and unnecessary files from version control.
+The base.py entry represents the required local configuration file. Its presence in the public repository has not been verified.
 
----
+📋 Requirements and Prerequisites
 
-⚙️ Requirements
+Before installing the project, make sure you have:
 
-Before running the project, make sure you have:
+Python installed.
+Git installed.
+A Telegram account.
+A Telegram Bot Token.
+An OMDb API Key.
+An internet connection.
 
-- Python installed.
-- A Telegram Bot Token.
-- An OMDb API Key.
-- An active internet connection.
+Python package dependencies are listed in requirements.txt.
 
----
-
-🚀 Installation
-
+🚀 Installation Guide
 1. Clone the Repository
 
+Open Windows PowerShell or the VS Code terminal:
+
+powershell
 git clone https://github.com/miky619/telegram_bot.git
 
-2. Navigate to the Project Directory
 
+Navigate to the project directory:
+
+powershell
 cd telegram_bot
 
-3. Create a Virtual Environment
+🐍 Virtual Environment Setup
 
-python -m venv .venv
+Using a virtual environment is recommended to keep project dependencies isolated.
 
-4. Activate the Virtual Environment
+Windows PowerShell
 
-Windows (PowerShell):
+Create a virtual environment:
 
-.venv\Scripts\Activate.ps1
+powershell
+python -m venv venv
 
-Linux / macOS:
 
-source .venv/bin/activate
+Activate it:
 
-5. Install Dependencies
+powershell
+.\venv\Scripts\Activate.ps1
 
+
+If PowerShell prevents script execution, you can temporarily allow activation scripts for the current terminal session:
+
+powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+
+Then activate the environment again:
+
+powershell
+.\venv\Scripts\Activate.ps1
+
+Linux and macOS
+
+Create the environment:
+
+bash
+python3 -m venv venv
+
+
+Activate it:
+
+bash
+source venv/bin/activate
+
+📦 Dependencies Installation
+
+Make sure your virtual environment is activated.
+
+Upgrade pip:
+
+powershell
+python -m pip install --upgrade pip
+
+
+Install the project dependencies:
+
+powershell
 pip install -r requirements.txt
 
----
+🔑 API Configuration
 
-🔑 Configuration
+The bot requires two credentials to communicate with Telegram and the OMDb API.
 
-The project requires two credentials:
+1. Create a Telegram Bot
+Open Telegram.
+Search for @BotFather.
+Start a conversation using /start.
+Send /newbot.
+Follow the instructions to choose a bot name and username.
+Copy the generated Telegram Bot Token.
 
-1. Telegram Bot Token
-2. OMDb API Key
+Keep your token private.
 
-Create a "base.py" file inside the "src" directory and configure it as follows:
+2. Obtain an OMDb API Key
+Visit the OMDb API website.
+Choose an available API key plan.
+Complete the registration process.
+Obtain your API Key.
 
+Keep your API key private as well.
+
+3. Create the base.py File
+
+Navigate to the src directory:
+
+powershell
+cd src
+
+
+Create a new file named base.py:
+
+powershell
+New-Item -Name "base.py" -ItemType File
+
+
+Open the file in VS Code:
+
+powershell
+code base.py
+
+
+Add the following configuration:
+
+python
 TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
-
 API_KEY = "YOUR_OMDB_API_KEY"
 
-Replace the placeholder values with your actual credentials.
 
-Security Notice: Never upload your real API keys or Telegram Bot Token to GitHub.
+Replace the placeholder values with your own credentials.
 
-Add the following entry to ".gitignore":
+For example:
 
+TOKEN: The token generated by BotFather.
+API_KEY: Your OMDb API key.
+
+Important: Do not publish your actual credentials on GitHub.
+
+Return to the project root before continuing:
+
+powershell
+cd ..
+
+⚙️ Environment Variables and Configuration Files
+
+The current application uses a Python configuration module named base.py.
+
+Expected configuration:
+
+python
+TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
+API_KEY = "YOUR_OMDB_API_KEY"
+
+
+The application expects these configuration values to be available through the base module.
+
+The project currently does not document an environment-variable-based configuration system.
+
+Recommended .gitignore Configuration
+
+Make sure your .gitignore file contains the following entries:
+
+gitignore
+# Local configuration and secrets
 src/base.py
 
----
+# Python cache
+__pycache__/
+*.py[cod]
 
-▶️ Running the Bot
+# Virtual environments
+venv/
+.venv/
 
-After installing the dependencies and configuring your credentials, run:
+# IDE settings
+.vscode/
 
+# Operating system files
+.DS_Store
+Thumbs.db
+
+
+If base.py has already been tracked by Git, adding it to .gitignore will not automatically remove it from Git tracking.
+
+▶️ Running the Application
+
+After completing the installation and configuration steps, open PowerShell in the project root.
+
+Run:
+
+powershell
 python src/app.py
 
-The bot uses Telegram polling to receive and process incoming messages.
 
-Once the application starts, open your Telegram bot and send:
+The bot should start if:
 
+Python dependencies are installed.
+src/base.py exists.
+The Telegram Bot Token is valid.
+The OMDb API Key is valid.
+Internet access is available.
+
+The application uses Telegram bot polling to receive user interactions.
+
+💬 Available Commands
+Command	Description
+/start	Start interacting with the bot
+/help	Display usage instructions
+/search	Search for movies
+
+The application also provides inline keyboard interactions for displaying movie details.
+
+📖 Usage Examples
+Start the Bot
+
+Send:
+
+text
 /start
 
----
 
-📱 Available Commands
+The bot responds with its welcome message.
 
-Command| Description
-"/start"| Start the bot and display the main menu
-"/help"| Display usage instructions
-"/search"| Search for a movie
-"/popular"| Display selected popular movies
+Display Help
 
-Users can also interact with the bot through its reply keyboard.
+Send:
 
----
+text
+/help
 
+
+The bot displays its usage instructions.
+
+Search for a Movie
+
+Send:
+
+text
+/search
+
+
+Follow the bot's search interaction to request movie information.
+
+View Movie Details
+
+Use the available inline keyboard buttons to retrieve movie information.
+
+Depending on the API response, the displayed information includes:
+
+Movie title.
+IMDb rating.
+Director.
+Cast.
+Plot summary.
 🔄 How It Works
 
-1. The user sends a command or selects an option from the Telegram keyboard.
-2. The bot processes the incoming message.
-3. For movie searches, the application sends a request to the OMDb API.
-4. The API returns matching movie information.
-5. The bot displays movie results using inline keyboard buttons.
-6. When a user selects a movie, the bot retrieves its detailed information.
-7. The selected movie's information is displayed directly in the Telegram chat.
+The application follows this general workflow:
 
----
-
+A user sends a command or interacts with the Telegram bot.
+The Telegram bot module processes the interaction.
+Movie-related requests are passed to the API module.
+The API module sends an HTTP request to OMDb.
+OMDb returns movie information.
+The application processes the response.
+The bot sends the resulting information back to the user.
 🌐 API Integration
+OMDb API
 
-This project uses the OMDb API to retrieve movie information.
+The project uses the OMDb API to retrieve movie information.
 
-The API is used for:
+The API key is supplied through the local configuration module.
 
-- Searching movies by title.
-- Retrieving detailed information using IMDb IDs.
-- Accessing movie ratings and descriptions.
+The application uses HTTP requests to communicate with the external service.
 
-Official API documentation:
+The retrieved information can include:
 
-https://www.omdbapi.com/
+Movie title.
+Release year.
+IMDb rating.
+Director.
+Actors.
+Plot summary.
 
----
+Availability of individual fields depends on the API response.
 
-🔒 Security
+Telegram Bot API
 
-- API credentials should remain private.
-- Configuration files containing secrets should not be committed.
-- The ".gitignore" file should exclude sensitive files and virtual environments.
+Telegram communication is handled through pyTelegramBotAPI.
 
----
+This library provides the functionality required to:
 
-🚧 Future Improvements
+Receive user messages.
+Register command handlers.
+Send messages.
+Display inline keyboards.
+Handle callback interactions.
+⚠️ Error Handling
 
-Potential improvements for future versions include:
+The current implementation includes basic API error handling.
 
-- Advanced movie filtering.
-- Search by genre and release year.
-- More comprehensive error handling.
-- Movie recommendations.
-- User favorites and watchlists.
-- Movie poster previews.
-- Database integration for storing user preferences.
+The API module can return an "ERROR" result when a request does not produce the expected response.
 
----
+However, error handling is limited and could be improved.
 
-👩‍💻 Author
+Potential failure scenarios include:
 
-Miky
+Invalid API credentials.
+Movie not found.
+Network connection problems.
+Unexpected API responses.
+Missing movie information.
 
-GitHub: https://github.com/miky619
+More comprehensive exception handling and logging are recommended for future versions.
 
----
+🔒 Security Considerations
+
+Security is important when deploying a Telegram bot.
+
+Follow these recommendations:
+
+Never publish your Telegram Bot Token.
+Never publish your OMDb API Key.
+Keep src/base.py out of public Git commits.
+Add configuration files containing secrets to .gitignore.
+Never share credentials in screenshots or public issue reports.
+Regenerate credentials immediately if they become exposed.
+Review Git history if sensitive information has previously been committed.
+
+Important: Removing a secret from the latest version of a repository does not remove it from previous commits.
+
+If a Telegram Bot Token has been exposed, revoke or regenerate it through BotFather.
+
+🧰 Troubleshooting
+ModuleNotFoundError
+
+If Python cannot find a required module, install the dependencies again:
+
+powershell
+pip install -r requirements.txt
+
+Missing Configuration Module
+
+If you encounter an error related to base, make sure the configuration file exists:
+
+text
+src/base.py
+
+
+Also verify that it contains the expected TOKEN and API_KEY variables.
+
+Telegram Bot Does Not Respond
+
+Check the following:
+
+Your Telegram Bot Token is valid.
+The bot application is running.
+Your internet connection is working.
+Another running process is not already polling with the same bot token.
+Movie Search Does Not Work
+
+Check:
+
+Your OMDb API Key.
+Your internet connection.
+The movie title spelling.
+OMDb API availability and usage limits.
+🚧 Current Limitations
+
+The current implementation has several limitations:
+
+Movie information depends on an external API.
+The predefined movie list contains a fixed set of titles.
+There is no documented database integration.
+There is no documented persistent user-data storage.
+API requests do not have an explicitly configured timeout.
+Network and response error handling is limited.
+Input validation could be improved.
+The application has no documented automated test suite.
+
+These limitations describe areas that could benefit from further development.
+
+🔮 Future Improvements
+
+Possible improvements for future versions include:
+
+Environment-variable-based configuration.
+More robust API error handling.
+HTTP request timeouts and retry mechanisms.
+Improved input validation.
+Advanced movie filtering and search options.
+Movie recommendations.
+Database integration.
+User search history.
+Automated testing.
+Logging and monitoring.
+Docker support.
+Continuous integration with GitHub Actions.
+
+These are suggestions for future development, not features currently claimed to be implemented.
+
+🤝 Contributing
+
+Contributions and suggestions are welcome.
+
+To contribute:
+
+Fork this repository.
+Create a new branch.
+Make your changes.
+Test your changes.
+Submit a pull request.
+
+Example:
+
+bash
+git checkout -b feature/new-feature
+git commit -m "Add new feature"
+git push origin feature/new-feature
+
+
+For major changes, consider opening an issue first to discuss your proposal.
 
 📄 License
 
-This project is available for educational and personal development purposes.
+No license file or confirmed license information has been provided.
 
-A formal open-source license can be added to define permissions for reuse and distribution.
+A license should be selected and added to the repository before others are granted explicit permission to reuse, modify, or distribute this project.
+
+👨‍💻 Author
+
+GitHub: @miky619
+
+📬 Contact and Repository
+GitHub Repository: https://github.com/miky619/telegram_bot
+Author: https://github.com/miky619
+
+For questions, bug reports, or suggestions, please use the repository's GitHub Issues section.
+
+⭐ If you find this project useful, consider giving the repository a star!
+
+Built with Python and Telegram Bot API.
